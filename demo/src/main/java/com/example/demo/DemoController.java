@@ -9,6 +9,7 @@ public class DemoController {
 
   @PostMapping("test")
   public DemoDto getMethodName(@RequestBody DemoDto demoDto) {
+    // そのままDtoを返す
     return demoDto;
   }
 

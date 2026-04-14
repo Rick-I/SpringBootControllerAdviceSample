@@ -3,34 +3,25 @@ package com.example.demo;
 import java.util.Date;
 
 public class DemoDto {
-  
-    private String name;
-    private int age;
+
+    private int id;
     private Date processedAt;
 
     // getter
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
+    public int getId() {
+        return id;
     }
 
     public Date getProcessedAt() {
-      return processedAt;
+        return processedAt;
     }
 
     // setter
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
+    public void setAge(int id) {
+        this.id = id;
     }
 
     public void setProcessedAt(Date processedAt) {
-      this.processedAt = processedAt;
+        this.processedAt = processedAt;
     }
 }

@@ -13,31 +13,11 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 
 @ControllerAdvice
-public class DemoControllerAdvice extends RequestBodyAdviceAdapter{
+public class DemoControllerAdvice{
 
   private static final Logger log = LoggerFactory.getLogger(DemoControllerAdvice.class);
 
-  @Override
-  public boolean supports(MethodParameter methodParameter, Type targetType,
-      Class<? extends HttpMessageConverter<?>> converterType) {
-    return false;
-  }
-
-  @Override
-  /*
-  *リクエストボディが@RequestBodyがついたオブジェクトにバインドされた後に実行
-  */
-  public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType,
-    Class<? extends HttpMessageConverter<?>> converterType) {
-    
-    if(body instanceof DemoDto request) {
-      Date currentDate = new Date();
-      request.setProcessedAt(currentDate);
-    }
-
-    return body;
-  }
-
+  // エラー処理
   @ExceptionHandler(Exception.class)
     public String handleException(Exception e) {
 
@@ -46,5 +26,4 @@ public class DemoControllerAdvice extends RequestBodyAdviceAdapter{
         return "サーバーエラーが発生しました！";
     }
 
-  
 }
