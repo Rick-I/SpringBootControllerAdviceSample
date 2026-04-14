@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 
 @ControllerAdvice
-public class DemoControllerAdvice{
+public class DemoControllerAdvice extends RequestBodyAdviceAdapter{
 
   private static final Logger log = LoggerFactory.getLogger(DemoControllerAdvice.class);
 
@@ -26,4 +26,26 @@ public class DemoControllerAdvice{
         return "サーバーエラーが発生しました！";
     }
 
+  // returnの内容によって実行の可否や実行対象のAPIを設定する
+  @Override
+  public boolean supports(MethodParameter methodParameter, Type targetType,
+      Class<? extends HttpMessageConverter<?>> converterType) {
+    return false;
+  }
+
+  @Override
+  /*
+  *リクエストボディが@RequestBodyがついたオブジェクトにバインドされた後に実行
+  */
+  public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType,
+    Class<? extends HttpMessageConverter<?>> converterType) {
+    
+    // リクエストDTOの処理日時に現在時刻を設定
+    if(body instanceof DemoDto request) {
+      Date currentDate = new Date();
+      request.setProcessedAt(currentDate);
+    }
+
+    return body;
+  }
 }
