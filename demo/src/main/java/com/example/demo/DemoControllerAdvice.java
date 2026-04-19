@@ -19,24 +19,22 @@ public class DemoControllerAdvice extends RequestBodyAdviceAdapter{
 
   // エラー処理
   @ExceptionHandler(Exception.class)
-    public String handleException(Exception e) {
-
-        log.error("例外発生", e);
-
-        return "サーバーエラーが発生しました！";
-    }
+  public String handleException(Exception e) {
+    log.error("例外発生", e);
+    return "サーバーエラーが発生しました！";
+  }
 
   // returnの内容によって実行の可否や実行対象のAPIを設定する
   @Override
   public boolean supports(MethodParameter methodParameter, Type targetType,
       Class<? extends HttpMessageConverter<?>> converterType) {
-    return false;
+    return true;
   }
 
-  @Override
   /*
-  *リクエストボディが@RequestBodyがついたオブジェクトにバインドされた後に実行
+  * リクエストボディが@RequestBodyがついたオブジェクトにバインドされた後に実行
   */
+  @Override
   public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType,
     Class<? extends HttpMessageConverter<?>> converterType) {
     

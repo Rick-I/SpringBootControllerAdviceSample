@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 
   @PostMapping("test")
-  public DemoDto getMethodName(@RequestBody DemoDto demoDto) {
+  public DemoDto testAPI(@RequestBody DemoDto demoDto) {
     // そのままDtoを返す
     return demoDto;
   }
